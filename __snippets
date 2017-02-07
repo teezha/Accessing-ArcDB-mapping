@@ -1,0 +1,175 @@
+						SpatialReference albers = SpatialReference.create(3005);
+						SpatialReference googleEarth = SpatialReference.create(4326);
+
+
+//*
+						// ===========================================================
+						// import org.w3c.dom.Document;
+						// import org.w3c.dom.Element;
+						// ===========================================================
+						Document kmlDoc;
+						kmlDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+
+						Element kml, document;
+
+						kml = kmlDoc.createElement("kml");
+						kml.setAttribute("xmlns", "http://www.opengis.net/kml/2.2");
+						kmlDoc.appendChild(kml);
+
+						document = kmlDoc.createElement("Document");
+						kml.appendChild(document);
+
+						Element placemark, name, description, kPoint, coordinates;
+
+
+						//*
+							// ===========================================================
+                        	// import org.w3c.dom.Document;
+                        	// import javax.xml.transform.OutputKeys;
+                        	// import javax.xml.transform.Result;
+                        	// import javax.xml.transform.Source;
+                        	// import javax.xml.transform.Transformer;
+                        	// import javax.xml.transform.TransformerFactory;
+                        	// import javax.xml.transform.dom.DOMSource;
+                        	// import javax.xml.transform.stream.StreamResult;
+                        	// ===========================================================
+
+                        	public static void saveDomAsXmlOnDisc(Document doc, File file)
+                        	{
+                        		try
+                        		{
+                        			// ===========================================================
+                        			// set up a new source for transforming
+                        			// ===========================================================
+                        			Source source = new DOMSource(doc);
+                        			// ===========================================================
+                        			// set up a new target and in this case a file on disc
+                        			// ===========================================================
+                        			Result result = new StreamResult(new PrintStream(file));
+                        			// ===========================================================
+                        			// make a new transformer to go from DOM to DISC
+                        			// ===========================================================
+                        			Transformer xformer = TransformerFactory.newInstance().newTransformer();
+                        			// ================================================================
+                        			// indent the XML --> more human readable, parser ignore whitespace
+                        			// ================================================================
+                        			xformer.setOutputProperty(OutputKeys.INDENT, "yes");
+                        			xformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+                        			// ===========================================================
+                        			// write the DOM in memory to the file on disc
+                        			// ===========================================================
+                        			xformer.transform(source, result);
+                        		}
+                        		catch (Exception e)
+                        		{
+                        			e.printStackTrace();
+                        		}
+                        	} // end of saveDomAsXmlOnDisc
+
+
+                        	//*
+                        	int id;
+                            						String name, description;
+                            						PGgeometry pgGeom;
+                            						Geometry   arjGeom;
+                            						Graphic tmpGraphic;
+                            						Map<String, Object> attributes;
+
+
+
+
+                         //*
+                         						Statement sql = conn.createStatement();
+                         						ResultSet res = sql.executeQuery("SELECT id, name, description, geom from gist_8010_m04.points_of_interest");
+
+
+
+//*
+
+public static Map<String, Object> mapFromAttributes(Integer pkey,
+			String name, String description) {
+		Map<String, Object> list = new HashMap<String, Object>();
+		list.put("pkey", pkey);
+		list.put("name", name);
+		list.put("description", description);
+		return list;
+	}
+
+
+//*
+connDia.setModalityType(ModalityType.APPLICATION_MODAL);
+
+//*
+
+	public String getDatabaseURL()
+	{
+		return(String.format("%s:%s://%s:%s/%s",
+				this.connectivityType, this.dbmsVendor,
+				this.serverNameOrIP, this.serverPort,
+				this.defaultDatabase));
+	}
+
+//*
+try {
+						// ===========================================================
+						// Load the postgresql driver
+						// ===========================================================
+						Class.forName("org.postgis.DriverWrapper");
+						// ===========================================================
+						// Create a connection using the connection info
+						//
+						// Things to do:
+						// 1. Add a private field called conn of type connection
+						// private Connection conn;
+						// 2. Add the following imports:
+						// import java.sql.Connection;
+						// import java.sql.DriverManager;
+						// ===========================================================
+						String dbURL = ""; //connDia.getConnectionInfo().getDatabaseURL();
+						String userName = ""; // connDia.getConnectionInfo().getUserName();
+						String passWord = ""; // connDia.getConnectionInfo().getUserPassword();
+
+						// ===========================================================
+						// make a connection with the connection info
+						// ===========================================================
+						Connection conn = DriverManager.getConnection(dbURL,
+								userName, passWord);
+
+						System.out.println("connected to the db .....");
+
+					} catch (Exception postGISexception) {
+						postGISexception.printStackTrace();
+
+					}
+
+//*
+
+	public String getDatabaseURL()
+	{
+		return(String.format("%s:%s://%s:%s/%s",
+				this.connectivityType, this.dbmsVendor,
+				this.serverNameOrIP, this.serverPort,
+				this.defaultDatabase));
+	}
+	//*
+
+			this.connectivityType = "jdbc";
+    		this.dbmsVendor = "postgresql_postGIS";
+    		this.serverNameOrIP = "gamma.athena.bcit.ca";
+    		this.serverPort = "5432";
+    		this.defaultDatabase = "${banner_id}";
+    		this.userName = "${banner_id}";
+    		this.userPassword = "${password}";
+
+
+//*
+
+	private String connectivityType;
+	private String dbmsVendor;
+	private String serverNameOrIP;
+	private String serverPort;
+	private String defaultDatabase;
+	private String userName;
+	private String userPassword;
+
+
